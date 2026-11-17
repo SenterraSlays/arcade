@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>SPELLSPIRE</title>
+<meta name="description" content="A roguelike deckbuilder. Climb a three-act spire, build a deck of spells, collect relics and outwit enemies whose intentions you can see.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Alegreya+Sans:wght@500;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #120d1f; --panel: rgba(28, 20, 44, .96); --panel2: #33264f; --line: rgba(230, 210, 255, .16); --line2: rgba(230, 210, 255, .36);
+    --text: #f3ecff; --muted: #b7a8d6; --dim: #7e70a0; --accent: #ffb347; --accent-ink: #2b1600; --accent2: #8f6bff; --gold: #ffd479; --good: #6fe39a; --bad: #ff6b6b;
+    --overlay: rgba(10, 6, 20, .84); --font-head: "Cinzel Decorative", Georgia, serif; --font-body: "Alegreya Sans", system-ui, sans-serif; --radius: .5em;
+    --cfs: clamp(12px, 1.45vmin + 5px, 16px); }
+  body { background: radial-gradient(ellipse at 50% 12%, #2f2052, #0c0815 72%); }
+  #app { position: fixed; inset: 0; display: flex; flex-direction: column; }
+  #app[hidden], #battle[hidden], #map[hidden] { display: none !important; }
+
+  /* top bar */
+  #top { display: flex; align-items: center; gap: .8em; padding: .4em .8em; padding-top: max(.4em, env(safe-area-inset-top)); background: rgba(0, 0, 0, .42); border-bottom: 1px solid var(--line); flex-wrap: wrap; font-weight: 800; position: relative; z-index: 6; }
+  #top .hp { color: #ff8a8a; } #top .gold { color: var(--gold); } #top .floor { color: var(--muted); }
+  #pots { display: flex; gap: .25em; }
+  #relics { display: flex; gap: .25em; flex: 1; flex-wrap: wrap; min-width: 4em; }
+  .relic { width: 1.9em; height: 1.9em; border-radius: 50%; display: grid; place-items: center; background: #3a2b5c; border: 1px solid var(--line2); font-size: .95em; cursor: help; }
+  .relic.flash { animation: rf .7s; } @keyframes rf { 40% { transform: scale(1.45); box-shadow: 0 0 1em var(--gold); border-color: var(--gold); } }
+  .relic.used { opacity: .35; filter: grayscale(1); }
+  .pot { width: 1.85em; height: 1.85em; border-radius: .4em; display: grid; place-items: center; background: #24304e; border: 1px solid var(--line2); cursor: pointer; font: inherit; padding: 0; color: inherit; }
+  .pot:hover { border-color: var(--accent); } .pot.empty { opacity: .3; cursor: default; }
+  #stage { flex: 1; position: relative; overflow: hidden; min-height: 0; }
+
+  /* battle */
+  #battle { position: absolute; inset: 0; display: flex; flex-direction: column; background: radial-gradient(ellipse 70% 38% at 50% 64%, var(--glow, rgba(143, 107, 255, .16)), transparent 70%), linear-gradient(transparent 50%, rgba(0, 0, 0, .3) 68%); }
+  #battle.act2 { --glow: rgba(111, 227, 154, .13); } #battle.act3 { --glow: rgba(122, 200, 255, .16); }
+  #field { flex: 1; display: flex; align-items: flex-end; justify-content: space-around; padding: .6em 3vw .4em; gap: 1em; min-height: 0; }
+  .foes { display: flex; gap: clamp(.4em, 2vw, 2em); align-items: flex-end; flex-wrap: wrap; justify-content: flex-end; }
+  .unit { display: flex; flex-direction: column; align-items: center; gap: .2em; position: relative; }
+  .unit canvas { width: clamp(84px, min(16vw, 30vh), 210px); height: clamp(84px, min(16vw, 30vh), 210px); animation: idle 3.2s ease-in-out infinite; }
+  .unit.boss canvas { width: clamp(120px, min(22vw, 40vh), 290px); height: clamp(120px, min(22vw, 40vh), 290px); }
+  .unit:nth-child(2) canvas { animation-delay: -1.1s; } .unit:nth-child(3) canvas { animation-delay: -2.2s; }
+  @keyframes idle { 50% { transform: translateY(-5px) scale(1.012, .99); } }
+  .unit.target { cursor: crosshair; } .unit.target canvas { filter: drop-shadow(0 0 .45em #ffb347aa); }
+  .unit.target:hover canvas, .unit.tk canvas { filter: drop-shadow(0 0 .8em #ffd479) brightness(1.15); }
+  .unit.tk .uname { color: var(--gold); } .unit.tk .uname::before { content: "▶ "; } .unit.tk .uname::after { content: " ◀"; }
+  .unit.hit { animation: hit .32s; } @keyframes hit { 25% { transform: translateX(-9px); filter: brightness(2.2) saturate(.3); } 60% { transform: translateX(7px); } }
+  .unit.dead { opacity: 0; transform: scale(.5) translateY(20px); transition: opacity .6s, transform .6s; pointer-events: none; }
+  .uname { font-weight: 800; font-size: .85em; color: var(--muted); white-space: nowrap; }
+  .bar { width: clamp(84px, min(13vw, 24vh), 170px); height: .9em; background: #2a1520; border-radius: 1em; position: relative; border: 1px solid #000a; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 1em; background: linear-gradient(#ff7a7a, #c8324a); transition: width .3s; }
+  .bar.blocked { border-color: #9ac4ff; } .bar.blocked i { background: linear-gradient(#a8ccff, #3d6fd0); }
+  .bar b { position: absolute; inset: 0; font-size: .72em; display: grid; place-items: center; color: #fff; text-shadow: 0 1px 2px #000; font-weight: 900; }
+  .blk { position: absolute; left: -1.3em; top: 50%; transform: translateY(-50%); width: 1.85em; height: 1.85em; display: grid; place-items: center; background: #3d7bd9; border-radius: .35em .35em 50% 50%; font-size: .78em; font-weight: 900; color: #fff; border: 2px solid #bcd6ff; z-index: 2; }
+  .stat { display: flex; gap: .2em; flex-wrap: wrap; justify-content: center; min-height: 1.35em; max-width: 11em; }
+  .stat span { font-size: .76em; font-weight: 900; padding: .1em .38em; border-radius: .4em; background: #000b; cursor: help; }
+  .intent { display: inline-flex; align-items: center; gap: .3em; font-weight: 900; padding: .15em .6em; border-radius: 1em; background: #000b; border: 1px solid var(--line2); min-height: 1.7em; cursor: help; animation: ib 1.6s ease-in-out infinite; white-space: nowrap; }
+  .intent.none { visibility: hidden; animation: none; }
+  @keyframes ib { 50% { transform: translateY(-3px); } }
+  .intent.atk { color: #ff9a9a; border-color: #ff8a8a77; } .intent.def { color: #9ac4ff; border-color: #8ab8ff77; } .intent.buf { color: #ffd479; border-color: #ffd47977; } .intent.deb { color: #d2b4ff; border-color: #c39bff77; }
+  .float { position: absolute; left: 50%; top: 12%; font: 900 1.5em var(--font-body); pointer-events: none; animation: fl 1.1s ease-out forwards; text-shadow: 0 2px 4px #000, 0 0 8px #000; z-index: 5; white-space: nowrap; }
+  .float.big { font-size: 2.15em; }
+  @keyframes fl { 0% { opacity: 0; transform: translate(-50%, 8px) scale(.7); } 15% { opacity: 1; transform: translate(-50%, 0) scale(1.15); } 100% { opacity: 0; transform: translate(-50%, -62px) scale(1); } }
+  .say { position: absolute; top: -.6em; left: 50%; transform: translateX(-50%); background: #000d; border: 1px solid var(--line2); padding: .15em .65em; border-radius: .5em; font-weight: 800; white-space: nowrap; animation: say 1.15s forwards; z-index: 6; pointer-events: none; }
+  @keyframes say { 0% { opacity: 0; } 12%, 75% { opacity: 1; } 100% { opacity: 0; } }
+  #turn { position: absolute; left: 50%; top: 36%; transform: translate(-50%, -50%); font: 900 clamp(1.6em, 4vw, 2.6em) var(--font-head); color: var(--gold); text-shadow: 0 0 .5em #8f6bff, 0 .1em 0 #000; pointer-events: none; opacity: 0; z-index: 4; white-space: nowrap; }
+  #turn.on { animation: turn 1.1s ease-out; }
+  @keyframes turn { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.8); } 20%, 65% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -62%) scale(1); } }
+  #hint { position: absolute; left: 50%; top: .8em; transform: translateX(-50%); color: var(--gold); font-weight: 900; font-size: 1.1em; background: #000c; border: 1px solid #ffd47955; padding: .3em 1em; border-radius: 1em; pointer-events: none; z-index: 4; white-space: nowrap; animation: hintIn .2s ease-out; }
+  @keyframes hintIn { from { opacity: 0; transform: translate(-50%, -6px); } }
+  #hint:empty { display: none; }
+  #hurt { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse at center, transparent 52%, #ff1a3acc); opacity: 0; z-index: 3; }
+  #hud { display: flex; align-items: flex-end; gap: .6em; padding: .3em .8em max(.6em, env(safe-area-inset-bottom)); position: relative; z-index: 2; }
+  .pile { font: inherit; font-weight: 900; color: var(--muted); text-align: center; font-size: .85em; cursor: pointer; background: none; border: 0; padding: .3em; flex: none; }
+  .pile b { display: block; font-size: 1.6em; color: var(--text); }
+  .pile:hover b { color: var(--gold); }
+  #energy { width: 3.3em; height: 3.3em; border-radius: 50%; display: grid; place-items: center; font: 900 1.35em var(--font-body); color: #2b1600; background: radial-gradient(circle at 40% 35%, #fff3d0, #ffb347 55%, #d9761a); box-shadow: 0 0 1.2em #ff9d2e88, inset 0 -.2em .4em #0003; flex: none; border: 2px solid #5c3200; }
+  #energy.empty { filter: grayscale(.8) brightness(.7); box-shadow: none; }
+  #energy.shake { animation: eshake .35s; } @keyframes eshake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+  #energy.pulse { animation: epulse .4s; } @keyframes epulse { 50% { transform: scale(1.2); } }
+  #hand { flex: 1; position: relative; height: calc(var(--cfs) * 12.2); min-width: 0; }
+  #endBtn { flex: none; padding: .85em 1.2em; font: 900 1em var(--font-body); }
+  #endBtn.glow { animation: eg 1.3s ease-in-out infinite; } @keyframes eg { 50% { box-shadow: 0 0 1.2em #ffb347, 0 0 0 .2em #ffd47988; } }
+
+  /* cards */
+  .card { --c: #c4473b; font-size: var(--cfs); width: 8.6em; height: 12em; flex: none; border-radius: .7em; background: linear-gradient(170deg, #fdf6e6, #e2d5b8); border: .28em solid var(--c); color: #2a1f15; position: relative; cursor: pointer; box-shadow: 0 .4em 1em #0008; display: flex; flex-direction: column; user-select: none; -webkit-user-select: none; touch-action: manipulation; padding: 0; margin: 0; font-family: var(--font-body); text-align: center; line-height: 1.15; transition: transform .16s, box-shadow .16s, filter .16s, opacity .16s; }
+  .card.skill { --c: #3b74c4; } .card.power { --c: #8a4fd1; } .card.status { --c: #555; background: linear-gradient(170deg, #ddd, #aaa); }
+  .card.r-rare { box-shadow: 0 .4em 1em #0008, 0 0 0 .16em #ffd479; }
+  .card > span { display: block; }
+  .card .cost { position: absolute; left: -.4em; top: -.4em; width: 1.85em; height: 1.85em; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff3d0, #ffb347 55%, #d9761a); display: grid; place-items: center; font-weight: 900; font-size: 1.15em; border: 2px solid #5c3200; color: #2b1600; z-index: 2; box-shadow: 0 .1em .3em #0006; }
+  .card .cost.free { background: radial-gradient(circle at 40% 35%, #eaffea, #6fe39a 55%, #2a9a52); }
+  .card .nm { font-weight: 900; padding: .45em .3em .1em 1.75em; font-size: .95em; line-height: 1.05; min-height: 2.25em; display: flex; align-items: center; justify-content: center; }
+  .card.up .nm { color: #23824a; }
+  .card .art { height: 4.1em; margin: .1em .45em .15em; border-radius: .35em; background: var(--c); overflow: hidden; box-shadow: inset 0 0 .6em #0006; }
+  .card .art canvas { width: 100%; height: 100%; display: block; }
+  .card .ty { font-size: .64em; font-weight: 900; letter-spacing: .1em; color: #7a6a55; text-transform: uppercase; }
+  .card .gem { font-style: normal; margin-left: .2em; } .gem.unc { color: #3b74c4; } .gem.rare { color: #d39b00; }
+  .card .tx { flex: 1; padding: .25em .5em .5em; font-size: .78em; font-weight: 700; line-height: 1.2; display: flex; align-items: center; justify-content: center; }
+  .card .tx > span { display: block; }
+  .card .tx em { font-style: normal; color: #b0401c; font-weight: 900; }
+  .card.dim { opacity: .45; filter: grayscale(.5); cursor: default; }
+  #hand .card { position: absolute; bottom: 0; transform: rotate(var(--rot, 0deg)) translateY(var(--dy, 0px)); transform-origin: 50% 100%; touch-action: none; }
+  body:not(.touch) #hand .card:hover, #hand .card.sel, #hand .card.kf { transform: translateY(-1.8em) scale(1.1); z-index: 50 !important; box-shadow: 0 .6em 1.6em #000a, 0 0 0 .2em var(--gold); }
+  body.touch #hand .card.sel { transform: translateY(-3.4em) scale(1.32); }
+  #hand .card.na { filter: grayscale(.65) brightness(.8); }
+  #hand .card.new { animation: drawIn .34s ease-out backwards; animation-delay: var(--d, 0ms); }
+  @keyframes drawIn { from { transform: translate(-42vw, 3em) rotate(-30deg) scale(.35); opacity: 0; } }
+  #hand .card.drag { transition: none; z-index: 60 !important; box-shadow: 0 1em 2em #000c, 0 0 0 .2em #fff6; }
+  #hand .card.drag.ready { box-shadow: 0 1em 2em #000c, 0 0 0 .22em var(--gold), 0 0 1.4em #ffd479; }
+  #hand .card.fly { opacity: 0; transform: translateY(-9em) scale(.75) !important; transition: transform .2s ease-in, opacity .2s; pointer-events: none; }
+  #hand .card.fade { opacity: 0; transition: opacity .2s; pointer-events: none; }
+  #hand .card.out { opacity: 0; transform: translate(42vw, 2em) rotate(28deg) scale(.4) !important; transition: transform .25s ease-in, opacity .25s; pointer-events: none; }
+  .cardrow { display: flex; gap: .9em; justify-content: center; flex-wrap: wrap; }
+  .deckview { display: flex; flex-wrap: wrap; gap: .7em; justify-content: center; max-width: 64em; padding-bottom: 2em; }
+  .deckview .card { font-size: calc(var(--cfs) * .86); }
+  .cardrow .card:hover, .cardrow .card:focus-visible, .deckview .card:hover, .deckview .card:focus-visible, .shopcards .card:hover, .shopcards .card:focus-visible { transform: translateY(-.35em) scale(1.05); box-shadow: 0 .6em 1.6em #000a, 0 0 0 .2em var(--gold); outline: none; }
+  .deckview div.card { cursor: default; }
+
+  /* overlays */
+  #fx { position: fixed; inset: 0; pointer-events: none; z-index: 40; overflow: hidden; }
+  .bolt { position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; }
+  #aim { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 45; display: none; overflow: visible; }
+  #aim.on { display: block; }
+  #aimPath { fill: none; stroke: #f3ecff; stroke-width: 5; stroke-dasharray: 2 11; stroke-linecap: round; filter: drop-shadow(0 0 4px #8f6bff); animation: aimd .45s linear infinite; }
+  #aimHead { fill: #f3ecff; filter: drop-shadow(0 0 4px #8f6bff); }
+  #aim.ok #aimPath { stroke: var(--gold); } #aim.ok #aimHead { fill: var(--gold); }
+  @keyframes aimd { to { stroke-dashoffset: -13; } }
+
+  /* map */
+  #map { position: absolute; inset: 0; overflow-y: auto; display: flex; justify-content: center; }
+  #map svg { width: min(96vw, 560px); height: auto; min-height: 620px; flex: none; margin: .4em 0 1em; }
+  .node circle.ring { fill: none; stroke: var(--gold); stroke-width: 3; opacity: 0; }
+  .node.avail { cursor: pointer; } .node.avail circle.ring { opacity: 1; animation: pulse 1.2s infinite; }
+  .node.avail:hover circle.bg, .node.kf circle.bg { stroke: #fff; stroke-width: 4; }
+  .node.kf circle.ring { stroke: #fff; stroke-width: 5; }
+  .node.done { opacity: .5; } .node.cur { opacity: 1; } .node.cur circle.bg { stroke: #fff; stroke-width: 4; }
+  .node:focus { outline: none; }
+  @keyframes pulse { 50% { stroke-width: 6; opacity: .55; } }
+
+  /* screens */
+  .logo { font: 900 clamp(2.2em, 9vw, 4.4em)/1.05 var(--font-head); color: #ffd479; text-shadow: 0 0 .4em #8f6bff, 0 .08em 0 #5c3200; letter-spacing: .03em; }
+  .logo.sm { font-size: clamp(1.6em, 6vw, 2.5em); }
+  .spire { width: clamp(5em, 17vmin, 9.5em); height: auto; filter: drop-shadow(0 0 1.4em #8f6bff88); animation: float 5s ease-in-out infinite; flex: none; }
+  @keyframes float { 50% { transform: translateY(-8px); } }
+  .hd { font-family: var(--font-head); color: var(--gold); margin: 0; }
+  .event { width: min(100%, 34em); text-align: left; display: flex; flex-direction: column; gap: .45em; }
+  .event h2 { color: var(--gold); text-align: center; }
+  .event p { line-height: 1.5; color: var(--muted); margin: 0 0 .4em; text-align: center; }
+  .emb { width: 6.5em; height: 6.5em; align-self: center; flex: none; }
+  .choice { display: block; width: 100%; text-align: left; }
+  .choice small, .k-menu .k-btn small, .relicpick small { display: block; font-weight: 600; color: var(--muted); font-size: .85em; margin-top: .15em; }
+  .k-btn.primary small { color: #6a3a00; }
+  .relicpick { width: 13em; display: flex; flex-direction: column; align-items: center; gap: .2em; padding: .9em .8em; }
+  .relicpick .ri { font-size: 2em; }
+  .shopwrap { display: flex; flex-direction: column; gap: 1.1em; align-items: center; width: 100%; }
+  .shopcards { display: flex; gap: .9em; flex-wrap: wrap; justify-content: center; }
+  .shopcards > div { display: flex; flex-direction: column; align-items: center; gap: .35em; }
+  .price { color: var(--gold); font-weight: 900; } .price.no { color: var(--bad); } .price.sold { color: var(--dim); }
+  .shopitems .k-btn { min-width: 9.5em; }
+  .shopitems .k-btn small { display: block; color: var(--gold); font-weight: 900; margin-top: .2em; }
+  .k-btn.dim { opacity: .45; }
+  @media (max-width: 760px) and (orientation: portrait) {
+    #hud { flex-wrap: wrap; justify-content: space-between; }
+    #hand { order: -1; flex: 0 0 100%; }
+    #field { flex-direction: column-reverse; align-items: center; justify-content: space-evenly; }
+    .foes { justify-content: center; }
+  }
+  @media (max-height: 560px) { :root { --cfs: 11px; } .unit canvas { width: 72px; height: 72px; } .unit.boss canvas { width: 100px; height: 100px; } }
+</style>
+</head>
+<body>
+<div id="app" hidden>
+  <div id="top"><span class="hp" id="tHp"></span><span class="gold" id="tGold"></span><span class="floor" id="tFloor"></span><span id="pots"></span><span id="relics"></span><button class="k-btn small" id="deckBtn" type="button">Deck</button><button class="k-btn small" id="menuBtn" type="button" aria-label="Menu">☰</button></div>
+  <div id="stage">
+    <div id="map" hidden></div>
+    <div id="battle" hidden>
+      <div id="field"></div>
+      <div id="turn"></div>
+      <div id="hint"></div>
+      <div id="hud"><button class="pile" id="drawPile" type="button">Draw<b>0</b></button><div id="energy">3/3</div><div id="hand"></div><button class="k-btn primary" id="endBtn" type="button">End turn</button><button class="pile" id="discPile" type="button">Discard<b>0</b></button></div>
+      <div id="hurt"></div>
+    </div>
+  </div>
+</div>
+<div id="fx"></div>
+<svg id="aim" aria-hidden="true"><path id="aimPath"/><path id="aimHead"/></svg>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="data.js?v=2"></script>
+<script src="game.js?v=2"></script>
+</body>
+</html>

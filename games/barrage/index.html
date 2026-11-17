@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>BARRAGE</title>
+<meta name="description" content="Turn-based artillery. Aim, read the wind and blow holes in the landscape. Ten weapons, smart CPU gunners and hotseat battles for up to four players.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Barlow:wght@600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #0e1420; --panel: rgba(14, 20, 32, .95); --panel2: #263247; --line: rgba(210, 225, 255, .14); --line2: rgba(210, 225, 255, .32);
+    --text: #eef3ff; --muted: #a9b6cf; --dim: #6c7a94; --accent: #ffb347; --accent-ink: #2b1600; --gold: #ffd479; --good: #6fe39a; --bad: #ff6b6b;
+    --overlay: rgba(6, 9, 16, .8); --font-head: "Black Ops One", Impact, sans-serif; --font-body: "Barlow", system-ui, sans-serif; --radius: .45em; }
+  body { background: #0b111b; }
+  #cv { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; touch-action: none; }
+  #top { position: fixed; left: 0; right: 0; top: 0; display: flex; justify-content: center; align-items: flex-start; gap: .5em; padding: max(.5em, env(safe-area-inset-top)) .6em 0; pointer-events: none; z-index: 5; flex-wrap: wrap; }
+  #top[hidden], #panel[hidden] { display: none !important; }
+  .pc { background: rgba(8, 12, 20, .78); border: 1px solid var(--line); border-radius: .55em; padding: .3em .55em; min-width: 8.5em; transition: transform .2s, border-color .2s; }
+  .pc.on { border-color: var(--c); box-shadow: 0 0 0 1px var(--c), 0 0 1em color-mix(in srgb, var(--c) 40%, transparent); transform: translateY(2px); }
+  .pc.dead { opacity: .4; }
+  .pc b { font: 400 .95em var(--font-head); color: var(--c); display: flex; justify-content: space-between; gap: .4em; }
+  .pc b span { color: var(--gold); font-family: var(--font-body); font-weight: 800; }
+  .pc .hb { height: .45em; background: #0006; border-radius: 1em; overflow: hidden; margin-top: .25em; }
+  .pc .hb i { display: block; height: 100%; background: var(--c); transition: width .3s; }
+  #wind { background: rgba(8, 12, 20, .78); border: 1px solid var(--line); border-radius: .55em; padding: .3em .7em; font: 800 .95em var(--font-body); text-align: center; min-width: 7em; }
+  #wind small { display: block; color: var(--muted); font-size: .72em; letter-spacing: .12em; }
+  #panel { position: fixed; left: 0; right: 0; margin: 0 auto; width: max-content; bottom: max(.5em, env(safe-area-inset-bottom)); display: flex; gap: .45em; align-items: stretch; background: rgba(8, 12, 20, .86); border: 1px solid var(--line2); border-radius: .8em; padding: .45em; z-index: 5; max-width: calc(100vw - 1em); flex-wrap: wrap; justify-content: center; }
+  #panel.off { opacity: .55; pointer-events: none; }
+  .grp { display: flex; align-items: center; gap: .25em; background: #ffffff0a; border-radius: .55em; padding: .2em .3em; }
+  .grp .lbl { font: 800 .68em var(--font-body); color: var(--muted); letter-spacing: .12em; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); }
+  .val { min-width: 3.2em; text-align: center; font: 400 1.25em var(--font-head); }
+  .pb { width: 2.4em; height: 2.4em; border-radius: .5em; border: 1px solid var(--line2); background: var(--panel2); color: var(--text); font: 800 1.1em var(--font-body); cursor: pointer; touch-action: manipulation; padding: 0; }
+  .pb:hover { border-color: var(--accent); } .pb:active { transform: translateY(1px); }
+  #wpn { display: flex; align-items: center; gap: .4em; min-width: 11em; }
+  #wpn canvas { width: 2.3em; height: 2.3em; }
+  #wpn b { font: 800 .95em var(--font-body); display: block; line-height: 1.1; } #wpn small { color: var(--muted); font-weight: 700; font-size: .78em; }
+  .fuel { width: 3.2em; height: .5em; background: #0007; border-radius: 1em; overflow: hidden; } .fuel i { display: block; height: 100%; background: linear-gradient(90deg, #ffb347, #ffd479); }
+  #fire { font: 400 1.25em var(--font-head); letter-spacing: .06em; padding: 0 1.2em; border-radius: .6em; border: 0; background: linear-gradient(#ff7a4a, #d6391a); color: #fff; cursor: pointer; text-shadow: 0 2px 0 #0005; box-shadow: 0 .2em 0 #7a1a08; touch-action: manipulation; }
+  #fire:active { transform: translateY(2px); box-shadow: 0 .05em 0 #7a1a08; }
+  #msg { position: fixed; left: 50%; top: 22%; transform: translate(-50%, -50%); font: 400 clamp(1.6em, 5vw, 3em) var(--font-head); color: #fff; text-shadow: 0 .08em 0 #000, 0 0 .5em #000; pointer-events: none; z-index: 6; opacity: 0; transition: opacity .3s; white-space: nowrap; text-align: center; }
+  #msg.on { opacity: 1; } #msg small { display: block; font: 800 .38em var(--font-body); color: var(--gold); letter-spacing: .1em; }
+  .logo { font: 400 clamp(2.8em, 12vw, 5.5em)/1 var(--font-head); color: #ffcf6a; letter-spacing: .04em; text-shadow: 0 .06em 0 #7a2a00, 0 0 .5em #ff5a1a66; }
+  .logo.sm { font-size: clamp(1.8em, 7vw, 3em); }
+  .setup { display: flex; flex-direction: column; gap: .45em; width: min(100%, 34em); }
+  .prow { display: flex; align-items: center; gap: .5em; background: var(--panel); border: 1px solid var(--line); border-radius: .6em; padding: .4em .6em; }
+  .prow .sw { width: 1.1em; height: 1.1em; border-radius: 50%; flex: none; }
+  .prow b { flex: 1; text-align: left; font: 400 1.05em var(--font-head); }
+  .k-seg .k-btn { padding: .45em .7em; font-size: .9em; }
+  .hint { color: var(--muted); font-size: .9em; }
+  .k-btn small { display: block; font-weight: 700; color: var(--muted); font-size: .82em; } .k-btn.primary small { color: #6a3a00; }
+  @media (max-width: 720px) { .pc { min-width: 6.5em; font-size: .85em; } #wpn { min-width: 8.5em; } .val { min-width: 2.6em; font-size: 1.1em; } .pb { width: 2.2em; height: 2.2em; } .grp .lbl { display: none; } }
+  @media (orientation: portrait) and (max-width: 720px) { #rot { display: block !important; } }
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div id="top" hidden></div>
+<div id="msg"></div>
+<button class="k-btn small" id="menuBtn" type="button" aria-label="Menu" style="position:fixed;right:max(.6em,env(safe-area-inset-right));top:max(.5em,env(safe-area-inset-top));z-index:6" hidden>☰</button>
+<div id="panel" hidden>
+  <div class="grp"><button class="pb" data-hold="wl" aria-label="Previous weapon">‹</button><div id="wpn"><canvas width="64" height="64"></canvas><div><b id="wName">Shell</b><small id="wAmmo">∞</small></div></div><button class="pb" data-hold="wr" aria-label="Next weapon">›</button></div>
+  <div class="grp"><span class="lbl">Angle</span><button class="pb" data-hold="a+" aria-label="Rotate barrel left">↶</button><span class="val" id="vAngle">45°</span><button class="pb" data-hold="a-" aria-label="Aim right">↷</button></div>
+  <div class="grp"><span class="lbl">Power</span><button class="pb" data-hold="p-" aria-label="Less power">−</button><span class="val" id="vPower">60</span><button class="pb" data-hold="p+" aria-label="More power">+</button></div>
+  <div class="grp"><span class="lbl">Move</span><button class="pb" data-hold="ml" aria-label="Drive left">◀</button><div class="fuel"><i id="vFuel"></i></div><button class="pb" data-hold="mr" aria-label="Drive right">▶</button></div>
+  <button id="fire" type="button">FIRE</button>
+</div>
+<div id="rot" style="display:none;position:fixed;left:50%;top:4.5em;transform:translateX(-50%);z-index:4;background:#000b;padding:.3em .7em;border-radius:.5em;font-weight:800;font-size:.85em;pointer-events:none">Rotate your phone for a bigger battlefield</div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>ISLEWRIGHT</title>
+<meta name="description" content="A calm island builder. Place houses, mills, farms and lighthouses where they score best, unlock new building packs and sail on to new islands.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #8fd3e8; --panel: rgba(255, 252, 244, .95); --panel2: #fff7e6; --line: rgba(40, 60, 80, .14); --line2: rgba(40, 60, 80, .28);
+    --text: #23384a; --muted: #5a6f80; --dim: #8a9aa8; --accent: #ff9f43; --accent-ink: #3a1a00; --gold: #e0a020; --good: #2fa866; --bad: #d94a4a;
+    --overlay: rgba(220, 238, 246, .82); --font-head: "Fraunces", Georgia, serif; --font-body: "Nunito", system-ui, sans-serif; --radius: .7em; --btn-shadow: 0 .15em 0 rgba(40,60,80,.18); }
+  body { background: #8fd3e8; color: var(--text); }
+  #cv { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; touch-action: none; }
+  #top { position: fixed; left: 0; right: 0; top: 0; display: flex; justify-content: center; padding: max(.6em, env(safe-area-inset-top)) .7em 0; pointer-events: none; z-index: 5; }
+  #top[hidden], #hand[hidden] { display: none !important; }
+  #score { background: var(--panel); border-radius: 1em; padding: .45em 1em .55em; box-shadow: 0 .3em 1em rgba(30,60,90,.18); text-align: center; min-width: 15em; pointer-events: auto; }
+  #score b { font: 800 1.9em/1 var(--font-head); display: block; }
+  #score .row { display: flex; justify-content: space-between; font-weight: 800; font-size: .78em; color: var(--muted); margin-top: .3em; gap: 1em; }
+  .prog { height: .55em; background: #e3ecef; border-radius: 1em; overflow: hidden; margin-top: .3em; }
+  .prog i { display: block; height: 100%; background: linear-gradient(90deg, #ffb347, #ff8a3a); border-radius: 1em; transition: width .4s; }
+  #menuBtn { position: fixed; right: max(.7em, env(safe-area-inset-right)); top: max(.6em, env(safe-area-inset-top)); z-index: 6; }
+  #undoBtn { position: fixed; left: max(.7em, env(safe-area-inset-left)); top: max(.6em, env(safe-area-inset-top)); z-index: 6; }
+  #hand { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; gap: .5em; padding: .5em .6em max(.7em, env(safe-area-inset-bottom)); z-index: 5; flex-wrap: wrap; pointer-events: none; }
+  .bc { pointer-events: auto; background: var(--panel); border: 2px solid transparent; border-radius: 1em; padding: .3em .55em .4em; display: flex; flex-direction: column; align-items: center; cursor: pointer; box-shadow: 0 .25em .8em rgba(30,60,90,.18); min-width: 5.2em; font: inherit; color: var(--text); position: relative; transition: transform .12s, border-color .12s; touch-action: manipulation; }
+  .bc:hover { transform: translateY(-3px); } .bc.on { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 .4em 1.2em rgba(255,140,40,.35); }
+  .bc canvas { width: 3.4em; height: 3.4em; }
+  .bc b { font-weight: 900; font-size: .82em; } .bc .n { position: absolute; top: .25em; right: .4em; background: var(--accent); color: #fff; font-weight: 900; font-size: .78em; border-radius: 1em; padding: 0 .45em; }
+  .bc .k { position: absolute; top: .3em; left: .5em; font-weight: 900; font-size: .7em; color: var(--dim); }
+  #tipbox { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(7.6em + env(safe-area-inset-bottom)); background: var(--panel); border-radius: .8em; padding: .5em .9em; box-shadow: 0 .3em 1em rgba(30,60,90,.2); font-weight: 800; font-size: .9em; text-align: center; max-width: min(30em, 92vw); pointer-events: none; z-index: 6; }
+  #tipbox:empty { display: none; } #tipbox small { display: block; color: var(--muted); font-weight: 700; }
+  .logo { font: 800 clamp(2.6em, 11vw, 5em)/1 var(--font-head); color: #fff; letter-spacing: .02em; text-shadow: 0 .05em 0 #2a7a9a, 0 .1em .4em rgba(20,80,110,.4); }
+  .logo.sm { font-size: clamp(1.8em, 7vw, 2.8em); }
+  .k-screen { color: var(--text); } .k-sub { color: var(--muted); } .k-screen.soft { background: rgba(225, 242, 250, .55); } .k-modal { background: rgba(200, 228, 240, .7); } .k-dialog { color: var(--text); }
+  .k-btn { background: #fff; color: var(--text); border-color: var(--line2); }
+  .k-btn.primary { background: var(--accent); color: #fff; } .k-btn.primary small { color: #fff3e0; }
+  .k-btn small { display: block; font-weight: 700; color: var(--muted); font-size: .82em; }
+  .packs { display: flex; gap: .7em; flex-wrap: wrap; justify-content: center; width: min(100%, 46em); }
+  .pack { width: 13.5em; display: flex; flex-direction: column; align-items: center; gap: .3em; padding: .9em .7em; }
+  .pack b { font: 800 1.2em var(--font-head); }
+  .pack .its { display: flex; gap: .3em; flex-wrap: wrap; justify-content: center; }
+  .pack .its span { display: inline-flex; align-items: center; gap: .15em; background: #f2f6f8; border-radius: .6em; padding: .1em .4em .1em .15em; font-weight: 900; font-size: .85em; }
+  .pack .its canvas { width: 2em; height: 2em; }
+  .pack.sail { background: linear-gradient(#e8f7ff, #cdeefa); }
+  .rules { text-align: left; display: flex; flex-direction: column; gap: .35em; width: min(100%, 40em); }
+  .rules .r { display: flex; align-items: center; gap: .6em; background: #fff; border-radius: .7em; padding: .4em .6em; }
+  .rules canvas { width: 2.8em; height: 2.8em; flex: none; } .rules b { display: block; } .rules small { color: var(--muted); font-weight: 700; }
+  @media (max-width: 640px) { .bc { min-width: 4.3em; padding: .25em .4em .3em; } .bc canvas { width: 2.7em; height: 2.7em; } #score { min-width: 11em; } #tipbox { bottom: calc(10em + env(safe-area-inset-bottom)); } }
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div id="top" hidden><div id="score"><b id="sv">0</b><div class="prog"><i id="pv"></i></div><div class="row"><span id="nv">Next pack at 20</span><span id="iv">Island 1</span></div></div></div>
+<button class="k-btn small" id="undoBtn" type="button" hidden>↶ Undo</button>
+<button class="k-btn small" id="menuBtn" type="button" aria-label="Menu" hidden>☰</button>
+<div id="tipbox"></div>
+<div id="hand" hidden></div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

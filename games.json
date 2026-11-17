@@ -1,5 +1,45 @@
 [
   {
+    "id": "spellspire",
+    "title": "SPELLSPIRE",
+    "description": "A roguelike deckbuilder. Climb a three-act spire with a deck of spells, read every enemy's intent, collect relics and potions, and build combos with burn, frost and expose until the Spire Heart falls.",
+    "tags": ["strategy", "cards", "roguelike", "deckbuilder"],
+    "added": "2026-11-17",
+    "path": "games/spellspire/",
+    "cover": "games/spellspire/cover.jpg",
+    "controls": "Click a card to play it, then click an enemy if it needs a target (or drag cards onto enemies)\nKeys: 1-9 pick cards, ← → choose targets, Enter plays, E ends the turn, P potions, D deck, Esc menu\nTouch: tap a card, then tap it again or tap an enemy\nController: D-pad picks, A plays, B cancels, X ends the turn"
+  },
+  {
+    "id": "deepcrawl",
+    "title": "DEEPCRAWL",
+    "description": "A turn-based roguelike. Pick a warrior, rogue or mage and descend ten floors of a freshly carved dungeon. Level up with perks, find better gear, drink potions, read scrolls and face the Lich King. Includes a daily descent.",
+    "tags": ["roguelike", "rpg", "dungeon", "daily"],
+    "added": "2026-11-17",
+    "path": "games/deepcrawl/",
+    "cover": "games/deepcrawl/cover.jpg",
+    "controls": "Move and attack: WASD or arrows (Q E Z C diagonals)\nSpace waits · 1 2 abilities · 3-9 items · X explores · Enter descends · M map · Esc menu\nTouch: tap a tile to walk, tap an enemy next to you to attack\nController: stick moves, A waits, X and Y abilities, RB explores"
+  },
+  {
+    "id": "barrage",
+    "title": "BARRAGE",
+    "description": "Turn-based artillery on destructible terrain. Read the wind, set your angle and power, and pick from ten weapons, from heavy shells and splitters to napalm, rollers and diggers. Fight sharp CPU gunners or friends in hotseat battles for up to four.",
+    "tags": ["strategy", "artillery", "party", "two player"],
+    "added": "2026-11-17",
+    "path": "games/barrage/",
+    "cover": "games/barrage/cover.jpg",
+    "controls": "Drag on the battlefield to aim (direction = angle, distance = power)\nKeys: ← → aim, ↑ ↓ power (Shift for fine control), A D drive, Q E weapon, Space fire\nTouch: drag to aim, use the panel buttons, tap FIRE\nController: D-pad aims and sets power, stick drives, LB/RB weapon, A fires"
+  },
+  {
+    "id": "islewright",
+    "title": "ISLEWRIGHT",
+    "description": "A calm island builder. Place houses, mills, farms, markets and lighthouses where their neighbours make them score, reach goals to unlock new building packs, and sail on to fresh islands. Every spot matters.",
+    "tags": ["puzzle", "builder", "relaxing", "strategy"],
+    "added": "2026-11-17",
+    "path": "games/islewright/",
+    "cover": "games/islewright/cover.jpg",
+    "controls": "Pick a building at the bottom, hover to preview its points, click to build\nKeys: arrows move a cursor, Enter builds, 1-9 or Tab picks a building, U undoes\nTouch: tap to preview, tap again to build, drag to pan, pinch to zoom\nController: D-pad moves, A builds, LB/RB picks, Y undoes"
+  },
+  {
     "id": "hopper",
     "title": "HOPPER",
     "description": "Hop across endless roads, rivers and rail lines. Dodge traffic, ride the logs, watch for trains and keep ahead of the fog. Collect coins to unlock ten critters, or try the daily path.",
