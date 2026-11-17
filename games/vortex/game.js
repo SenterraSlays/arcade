@@ -80,7 +80,7 @@ function update(dt) {
   }
   if (blocked(sectorOf(G.theta))) die();
   // ranks
-  if (G.rank < RANKS.length && G.t >= RANKS[G.rank][0]) { const [sec, name] = RANKS[G.rank]; G.rank++; K.banner(name, `${sec} seconds`, 1400); K.sfx("rank"); if (sec === 60 && G.li + 2 > SAVE.unlocked && G.li < LEVELS.length - 1) { SAVE.unlocked = G.li + 2; persist(); setTimeout(() => K.toast("New level unlocked", LEVELS[G.li + 1].name, "big"), 900); } }
+  if (G.rank < RANKS.length && G.t >= RANKS[G.rank][0]) { const [sec, name] = RANKS[G.rank]; G.rank++; K.banner(name, `${sec} seconds`, 1400); K.sfx("rank"); if (sec === 60 && G.li + 2 > SAVE.unlocked && G.li < LEVELS.length - 1) { SAVE.unlocked = G.li + 2; persist(); const nm = LEVELS[G.li + 1].name; setTimeout(() => K.toast("New level unlocked", nm, "big"), 900); } }
 }
 function blocked(s) { for (const w of G.walls) if (w.s === s && w.r <= RP + 4 && w.r + w.th >= RP - 4) return true; return false; }
 function die() {
