@@ -1,5 +1,15 @@
 [
   {
+    "id": "momentum",
+    "title": "MOMENTUM",
+    "description": "A pixel-art speedrun platformer. Chain jumps, wall kicks and dashes to keep your speed, race your own ghost through 10 levels with live splits, then build levels in the editor and share them as codes.",
+    "tags": ["platformer", "speedrun", "level editor", "pixel art"],
+    "added": "2026-11-17",
+    "path": "games/momentum/",
+    "cover": "games/momentum/cover.jpg",
+    "controls": "Move: Arrows / WASD\nJump: Space / Z\nDash: X / Shift (aim with a direction)\nRestart level: R   Pause: Esc\nController and touch work too"
+  },
+  {
     "id": "octive",
     "title": "OCTIVE",
     "description": "A fast vertical-scrolling rhythm game. Hit the notes as they reach the line, climb the global rankings, take on the daily charts, and import your own .oct or osu! beatmaps.",
