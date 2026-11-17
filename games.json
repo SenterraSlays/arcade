@@ -1,5 +1,45 @@
 [
   {
+    "id": "prismbreak",
+    "title": "PRISMBREAK",
+    "description": "A neon brick breaker with 24 levels across three worlds. Prism bricks split your ball in three, bombs chain together, and ten power-ups include lasers, fireballs and multiball. Earn three stars per level, or play the endless mode.",
+    "tags": ["arcade", "brick breaker", "action", "levels"],
+    "added": "2026-11-17",
+    "path": "games/prismbreak/",
+    "cover": "games/prismbreak/cover.jpg",
+    "controls": "Mouse or finger moves the paddle\nClick, tap or Space launches the ball and fires lasers\n← → also move the paddle   Esc: pause\nController works too"
+  },
+  {
+    "id": "neonsurge",
+    "title": "NEON SURGE",
+    "description": "A twin-stick arena shooter on a warping neon grid. Fight nine kinds of enemies, pick up sparks to raise your multiplier, and clear the screen with bombs. Play Arena, a three-minute Rush, or the Daily.",
+    "tags": ["shooter", "arcade", "action", "daily"],
+    "added": "2026-11-17",
+    "path": "games/neonsurge/",
+    "cover": "games/neonsurge/cover.jpg",
+    "controls": "Move: WASD   Aim: mouse (fires on its own)\nArrow keys also shoot   Bomb: Space or right-click\nController: left stick moves, right stick shoots\nTouch: left thumb moves, right thumb shoots"
+  },
+  {
+    "id": "starlance",
+    "title": "STARLANCE",
+    "description": "A vertical bullet-hell shooter. Weave through three stages of glowing patterns and beat three bosses with twelve named attacks. Graze bullets for points, focus for precision, and bomb when it gets tight. Three difficulties and practice mode.",
+    "tags": ["shooter", "bullet hell", "arcade", "bosses"],
+    "added": "2026-11-17",
+    "path": "games/starlance/",
+    "cover": "games/starlance/cover.jpg",
+    "controls": "Move: arrows / WASD   Focus: Shift\nFire: automatic (or Z)   Bomb: X   Pause: Esc\nTouch: drag to steer, double-tap to bomb\nController works too"
+  },
+  {
+    "id": "vortex",
+    "title": "VORTEX",
+    "description": "A fast reflex game. Orbit the core and slip through the gaps as walls close in from every side. Earn a new rank every ten seconds, and last a minute to unlock the next of six levels.",
+    "tags": ["arcade", "reflex", "hard", "endless"],
+    "added": "2026-11-17",
+    "path": "games/vortex/",
+    "cover": "games/vortex/cover.jpg",
+    "controls": "Turn: ← → or A D\nTouch: hold the left or right half of the screen\nSpace or tap: retry right away   Esc: menu\nController: D-pad, stick or bumpers"
+  },
+  {
     "id": "patience",
     "title": "PATIENCE",
     "description": "Three solitaire games in one: Klondike (draw 1 or 3), Spider (1, 2 or 4 suits) and FreeCell with numbered deals. Klondike deals can always be won, hints come from a solver, and you get unlimited undo, daily deals and stats.",

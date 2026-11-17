@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>NEON SURGE</title>
+<meta name="description" content="A neon twin-stick arena shooter. Blast nine kinds of enemies, grab sparks to raise your multiplier, and survive the surge.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #02030a; --panel: rgba(6, 10, 26, .95); --panel2: #101a3e; --line: rgba(120, 200, 255, .2); --line2: rgba(140, 210, 255, .45);
+    --text: #eaf6ff; --muted: #8fb3d6; --dim: #5d7a99; --accent: #00f0ff; --accent-ink: #001418; --accent2: #ff2bd6; --gold: #ffe14d; --good: #3dff8a; --bad: #ff3b5c;
+    --overlay: rgba(1, 3, 10, .76); --font-head: "Audiowide", system-ui, sans-serif; --font-body: "Rajdhani", system-ui, sans-serif; --radius: .3em; }
+  body { font-size: clamp(15px, .95vmin + 9px, 20px); }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; cursor: crosshair; }
+  #bombBtn, #pauseBtn { position: fixed; z-index: 10; }
+  #pauseBtn { top: max(.5em, env(safe-area-inset-top)); right: .6em; }
+  #bombBtn { bottom: max(1.2em, env(safe-area-inset-bottom)); right: 50%; transform: translateX(50%); padding: .7em 1.2em; border-color: var(--accent2); color: var(--accent2); }
+  .logo { font: 400 clamp(2.4em, 10vw, 5em)/1 var(--font-head); letter-spacing: .06em; color: #fff; text-shadow: 0 0 .3em #00f0ff, 0 0 .9em #ff2bd6; }
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(12em, 1fr)); gap: .6em; width: min(100%, 44em); }
+  .mode { display: flex; flex-direction: column; gap: .2em; text-align: left; padding: .8em .9em; }
+  .mode b { font: 400 1.15em var(--font-head); color: var(--accent); } .mode span { color: var(--muted); font-weight: 500; } .mode em { color: var(--gold); font-style: normal; font-weight: 700; }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Arena"></canvas>
+<button class="k-btn small" id="pauseBtn" hidden aria-label="Pause">❚❚</button>
+<button class="k-btn" id="bombBtn" hidden>BOMB</button>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

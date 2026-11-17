@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>STARLANCE</title>
+<meta name="description" content="A vertical bullet-hell shooter. Weave through three stages of glowing bullet patterns, graze for points and defeat three bosses.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Saira+Semi+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #04030d; --panel: rgba(14, 10, 38, .95); --panel2: #22184f; --line: rgba(190, 170, 255, .18); --line2: rgba(200, 180, 255, .42);
+    --text: #f4f0ff; --muted: #b3a8dc; --dim: #786ea3; --accent: #ff7ad9; --accent-ink: #2b0020; --accent2: #7ad7ff; --gold: #ffe08a; --good: #8affc1; --bad: #ff6b8a;
+    --overlay: rgba(4, 3, 14, .78); --font-head: "Michroma", system-ui, sans-serif; --font-body: "Saira Semi Condensed", system-ui, sans-serif; --radius: .35em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  .tb { position: fixed; z-index: 10; bottom: max(1em, env(safe-area-inset-bottom)); padding: .8em 1.1em; }
+  #focusBtn { left: .8em; } #bombBtn { right: .8em; border-color: var(--accent); color: var(--accent); }
+  #pauseBtn { position: fixed; z-index: 10; top: max(.5em, env(safe-area-inset-top)); right: .6em; }
+  .logo { font: 400 clamp(2.2em, 9vw, 4.6em)/1 var(--font-head); letter-spacing: .12em; color: #fff; text-shadow: 0 0 .25em #ff7ad9, 0 0 .8em #7ad7ff; }
+  .diffs { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5em; width: min(100%, 34em); }
+  .diff { display: flex; flex-direction: column; gap: .15em; padding: .7em .5em; }
+  .diff b { font: 400 1em var(--font-head); letter-spacing: .08em; } .diff small { color: var(--muted); font-weight: 500; } .diff em { color: var(--gold); font-style: normal; font-size: .85em; }
+  .diff.on { border-color: var(--accent); background: rgba(255, 122, 217, .15); }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Playfield"></canvas>
+<button class="k-btn small" id="pauseBtn" hidden aria-label="Pause">❚❚</button>
+<button class="k-btn tb" id="focusBtn" hidden>FOCUS</button>
+<button class="k-btn tb" id="bombBtn" hidden>BOMB</button>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

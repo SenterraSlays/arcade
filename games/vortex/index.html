@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>VORTEX</title>
+<meta name="description" content="A fast reflex game. Orbit the core, slip through the gaps in the closing walls and survive as long as you can across six levels.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Exo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #08060f; --panel: rgba(14, 10, 26, .94); --panel2: #241a3e; --line: rgba(255, 255, 255, .14); --line2: rgba(255, 255, 255, .34);
+    --text: #fff; --muted: #b9b1d0; --dim: #7b7394; --accent: #ff3d7f; --accent-ink: #26000f; --accent2: #2de2e6; --gold: #ffd166; --good: #7cf29c; --bad: #ff4d5e;
+    --overlay: rgba(6, 4, 12, .62); --font-head: "Russo One", system-ui, sans-serif; --font-body: "Exo 2", system-ui, sans-serif; --radius: .3em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  .logo { font: 400 clamp(3em, 15vw, 6.5em)/1 var(--font-head); letter-spacing: .08em; color: #fff; text-shadow: .05em .05em 0 var(--accent), -.04em -.03em 0 var(--accent2); }
+  .lvls { display: flex; flex-direction: column; gap: .4em; width: min(100%, 26em); }
+  .lvl { display: flex; align-items: center; justify-content: space-between; gap: .6em; padding: .7em 1em; text-align: left; }
+  .lvl b { font: 400 1.15em var(--font-head); letter-spacing: .06em; } .lvl span { color: var(--muted); font-size: .85em; } .lvl em { font-style: normal; color: var(--gold); font-weight: 800; font-variant-numeric: tabular-nums; }
+  .lvl[disabled] { opacity: .45; }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Vortex"></canvas>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>
