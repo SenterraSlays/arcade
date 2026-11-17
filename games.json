@@ -1,5 +1,35 @@
 [
   {
+    "id": "lastlantern",
+    "title": "Last Lantern",
+    "description": "A pixel-art survival roguelite. Your weapons fire on their own, so dodge the swarm, pick upgrades, evolve your weapons and survive 15 minutes until dawn. Unlock six keepers, three stages with bosses, and a daily night.",
+    "tags": ["roguelite", "survival", "action", "pixel art"],
+    "added": "2026-11-17",
+    "path": "games/lastlantern/",
+    "cover": "games/lastlantern/cover.jpg",
+    "controls": "Move: WASD / arrows / stick / drag on touch\nWeapons attack on their own\nLevel up: click a card, or 1-4\nPause: Esc / P / Start"
+  },
+  {
+    "id": "gridlock",
+    "title": "GRIDLOCK",
+    "description": "Neon tower defense on a new grid every game. Build and upgrade nine towers, hold the core for 30 waves or go endless, then design your own maps in the editor and share them as codes.",
+    "tags": ["tower defense", "strategy", "level editor", "endless"],
+    "added": "2026-11-17",
+    "path": "games/gridlock/",
+    "cover": "games/gridlock/cover.jpg",
+    "controls": "Build: pick a tower (1-9), then click a free tile\nClick a tower to upgrade (U), sell (S) or retarget (T)\nSpace: next wave   F: speed   Esc: pause\nController and touch work too"
+  },
+  {
+    "id": "starforge",
+    "title": "STARFORGE",
+    "description": "An idle game about forging stardust. Click the star, build a solar system of 14 forges, catch golden comets, then go supernova for remnants and light constellations. It keeps forging while you're away.",
+    "tags": ["idle", "incremental", "clicker", "space"],
+    "added": "2026-11-17",
+    "path": "games/starforge/",
+    "cover": "games/starforge/cover.jpg",
+    "controls": "Click the star (or press Space) to forge stardust\nBuy forges and upgrades in the side panel\nCatch golden comets when they fly past\nSaves automatically"
+  },
+  {
     "id": "momentum",
     "title": "MOMENTUM",
     "description": "A pixel-art speedrun platformer. Chain jumps, wall kicks and dashes to keep your speed, race your own ghost through 10 levels with live splits, then build levels in the editor and share them as codes.",
