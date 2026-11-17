@@ -85,6 +85,7 @@ select:focus-visible { outline: 3px solid rgba(155, 92, 255, .5); outline-offset
 .tag[aria-pressed="true"] { background: var(--grad); color: #fff; border-color: transparent; }
 .tag:focus-visible { outline: 3px solid rgba(155, 92, 255, .5); outline-offset: 2px; }
 a.tag { text-decoration: none; }
+.tag.more { border-style: dashed; color: var(--text); }
 
 .count { color: var(--muted); font-size: 14px; margin: 18px 0 10px; min-height: 1.5em; }
 

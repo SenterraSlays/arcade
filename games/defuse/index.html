@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>DEFUSE</title>
+<meta name="description" content="Minesweeper with boards you can always solve by logic. Chording, hints, daily board, best times.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=JetBrains+Mono:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #0a0f1a; --panel: rgba(16, 24, 40, .96); --panel2: #1b2740; --line: rgba(140, 170, 220, .18); --line2: rgba(160, 190, 240, .38);
+    --text: #eef3fb; --muted: #95a6c4; --accent: #ff9f40; --accent-ink: #261200; --gold: #ffd166; --good: #6ee7a8; --bad: #ff6b6b;
+    --font-head: "Sora", system-ui, sans-serif; --font-body: "Sora", system-ui, sans-serif; --radius: .5em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #hud { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; justify-content: center; gap: .6em; padding: .55em .7em; padding-top: max(.55em, env(safe-area-inset-top)); flex-wrap: wrap; pointer-events: none; }
+  #hud > * { pointer-events: auto; }
+  .ctr { font: 800 1.25em/1 "JetBrains Mono", monospace; background: rgba(4, 8, 16, .85); border: 1px solid var(--line2); border-radius: .4em; padding: .35em .6em; color: #ff8a5c; min-width: 4.2em; text-align: center; letter-spacing: .04em; }
+  .ctr.t { color: #7fd3ff; }
+  #face { font-size: 1.35em; width: 2.2em; height: 2.2em; padding: 0; border-radius: 50%; }
+  .hb { font-weight: 700; }
+  .hb.on { border-color: var(--accent); color: var(--accent); background: rgba(255, 159, 64, .15); }
+  .logo { font-family: var(--font-head); font-weight: 800; font-size: clamp(2.6em, 10vw, 5em); letter-spacing: .1em; line-height: 1; color: #fff;
+    text-shadow: 0 0 .35em rgba(255, 159, 64, .55), .04em .04em 0 #ff6b35; }
+  .diffs { display: grid; grid-template-columns: repeat(auto-fit, minmax(11em, 1fr)); gap: .5em; width: min(100%, 44em); }
+  .diff { text-align: left; display: flex; flex-direction: column; gap: .15em; padding: .75em .9em; }
+  .diff b { font-size: 1.08em; } .diff span { color: var(--muted); font-size: .88em; font-weight: 500; } .diff em { font-style: normal; color: var(--gold); font-size: .84em; }
+  .big { font: 800 clamp(2.2em, 8vw, 3.4em)/1.1 "JetBrains Mono", monospace; }
+  .custom { display: flex; gap: .6em; flex-wrap: wrap; justify-content: center; align-items: center; }
+  .custom label { display: flex; flex-direction: column; gap: .2em; color: var(--muted); font-size: .85em; text-align: left; }
+  .custom input { width: 5em; font: inherit; color: var(--text); background: rgba(0, 0, 0, .3); border: 1px solid var(--line2); border-radius: .35em; padding: .35em .5em; -webkit-user-select: text; user-select: text; }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="DEFUSE board"></canvas>
+<div id="hud" hidden>
+  <div class="ctr" id="mines" title="Mines left">010</div>
+  <button class="k-btn" id="face" title="New board (F2)" aria-label="New board">🙂</button>
+  <div class="ctr t" id="time" title="Time">0.0</div>
+  <button class="k-btn small hb" id="flagMode" title="Flag mode">🚩 Flag</button>
+  <button class="k-btn small hb" id="hintBtn" title="Hint (H)">Hint</button>
+  <button class="k-btn small hb" id="zoomBtn" title="Zoom">⤢</button>
+  <button class="k-btn small hb" id="menuBtn" title="Menu (Esc)">☰</button>
+</div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

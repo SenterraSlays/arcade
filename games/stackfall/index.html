@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>STACKFALL</title>
+<meta name="description" content="Falling-block puzzle with modern rules: hold, ghost, T-spins, combos. Marathon, Sprint, Ultra, Dig, Zen and a daily challenge.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #070914; --panel: rgba(14, 18, 38, .95); --panel2: #18203f; --line: rgba(120, 150, 255, .18); --line2: rgba(140, 170, 255, .4);
+    --text: #eef2ff; --muted: #9aa6d0; --accent: #4fe6ff; --accent-ink: #00141a; --accent2: #b06cff; --gold: #ffd84a; --good: #5ef08a; --bad: #ff5a6e;
+    --font-head: "Chakra Petch", system-ui, sans-serif; --font-body: "Chakra Petch", system-ui, sans-serif; --radius: .45em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  .logo { font-family: var(--font-head); font-weight: 700; font-size: clamp(2.4em, 9vw, 4.8em); letter-spacing: .08em; line-height: 1;
+    background: linear-gradient(90deg, #4fe6ff, #b06cff 45%, #ff5a6e 70%, #ffd84a); -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 4px 22px rgba(79, 230, 255, .35)); }
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(13em, 1fr)); gap: .55em; width: min(100%, 46em); }
+  .mode { text-align: left; padding: .8em .9em; display: flex; flex-direction: column; gap: .2em; }
+  .mode b { font-size: 1.1em; letter-spacing: .03em; }
+  .mode span { color: var(--muted); font-weight: 500; font-size: .9em; }
+  .mode em { font-style: normal; color: var(--gold); font-size: .85em; }
+  .big { font-family: var(--font-head); font-size: clamp(2.2em, 8vw, 3.6em); font-weight: 700; letter-spacing: .03em; }
+  .pb { color: var(--gold); font-weight: 700; }
+  .keys { display: grid; grid-template-columns: 1fr auto; gap: .35em 1.2em; width: min(100%, 26em); text-align: left; }
+  .keys .k-btn { min-width: 7em; }
+  .keys .k-btn.wait { border-color: var(--gold); color: var(--gold); }
+  #touchbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; gap: 2vw; justify-content: center; padding: .6em .6em max(.6em, env(safe-area-inset-bottom)); pointer-events: none; }
+  #touchbar button { pointer-events: auto; width: min(17vw, 5.2em); height: min(17vw, 5.2em); border-radius: 50%; background: rgba(30, 40, 80, .55); border: 2px solid rgba(140, 170, 255, .45);
+    color: var(--text); font: 700 .8em var(--font-body); touch-action: none; }
+  #touchbar button:active { background: rgba(79, 230, 255, .35); }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="STACKFALL board"></canvas>
+<div id="touchbar" hidden>
+  <button data-t="hold">HOLD</button><button data-t="ccw">⟲</button><button data-t="cw">⟳</button><button data-t="drop">DROP</button><button data-t="pause">II</button>
+</div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

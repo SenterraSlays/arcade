@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>INKGRID</title>
+<meta name="description" content="Picture logic puzzles (nonograms). Use the number clues to ink in a hidden picture. Every puzzle is solvable without guessing.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Nunito:wght@500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #efe8da; --panel: rgba(250, 246, 237, .97); --panel2: #f6f0e3; --line: rgba(43, 42, 51, .14); --line2: rgba(43, 42, 51, .32); --text: #2b2a33; --muted: #6d6a72; --dim: #9a958d;
+    --accent: #2b2a33; --accent-ink: #f6f0e3; --accent2: #e0454a; --gold: #b5761f; --good: #3f8f4a; --bad: #e0454a; --overlay: rgba(239, 232, 218, .84);
+    --font-head: "DM Serif Display", Georgia, serif; --font-body: "Nunito", system-ui, sans-serif; --radius: .55em; color-scheme: light; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: .5em; justify-content: center; padding: .5em .6em; padding-top: max(.5em, env(safe-area-inset-top)); flex-wrap: wrap; pointer-events: none; }
+  #bar[hidden] { display: none !important; }
+  #bar > * { pointer-events: auto; }
+  #pname { font: 1.25em var(--font-head); min-width: 6em; text-align: center; }
+  #ptime { font-weight: 800; color: var(--muted); min-width: 3.4em; text-align: center; }
+  #mistakes { color: var(--accent2); font-weight: 800; }
+  .seg2 { display: inline-flex; border: 1px solid var(--line2); border-radius: .5em; overflow: hidden; }
+  .seg2 button { border: 0; border-radius: 0; background: var(--panel2); color: var(--text); font: 800 .9em var(--font-body); padding: .45em .7em; cursor: pointer; }
+  .seg2 button.on { background: var(--accent); color: var(--accent-ink); }
+  body.touch .seg2 { position: fixed; left: 50%; transform: translateX(-50%); bottom: max(.9em, env(safe-area-inset-bottom)); font-size: 1.25em; box-shadow: 0 6px 18px rgba(0, 0, 0, .15); }
+  body.touch .seg2 button { padding: .6em 1.2em; }
+  .logo { font: 400 clamp(3em, 12vw, 5.6em)/1 var(--font-head); letter-spacing: .04em; color: #2b2a33; }
+  .logo span { color: #e0454a; }
+  .packs { display: grid; grid-template-columns: repeat(auto-fit, minmax(13em, 1fr)); gap: .6em; width: min(100%, 52em); }
+  .pack { text-align: left; display: flex; flex-direction: column; gap: .2em; padding: .8em .95em; background: var(--panel); }
+  .pack b { font: 1.25em var(--font-head); } .pack span { color: var(--muted); font-size: .9em; } .pack em { color: var(--gold); font-style: normal; font-weight: 800; font-size: .85em; }
+  .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5em, 1fr)); gap: .6em; width: min(100%, 56em); }
+  .thumb { display: flex; flex-direction: column; align-items: center; gap: .35em; padding: .55em; background: var(--panel); }
+  .thumb canvas { width: 100%; aspect-ratio: 1; image-rendering: pixelated; border-radius: .3em; background: #f6f0e3; }
+  .thumb b { font-size: .88em; } .thumb small { color: var(--dim); font-weight: 700; font-size: .75em; }
+  .reveal canvas { width: min(60vw, 260px); aspect-ratio: 1; image-rendering: pixelated; border-radius: .5em; box-shadow: 0 10px 30px rgba(0, 0, 0, .18); }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Puzzle grid"></canvas>
+<div id="bar" hidden>
+  <button class="k-btn small" id="menuBtn" aria-label="Menu">☰</button>
+  <span id="pname">???</span><span id="ptime">0:00</span><span id="mistakes"></span>
+  <span class="seg2"><button id="mFill" class="on" title="Fill (Z)">■ Fill</button><button id="mCross" title="Cross (X)">✕ Cross</button></span>
+  <button class="k-btn small" id="undoBtn" title="Undo (Ctrl+Z)">↶</button>
+  <button class="k-btn small" id="hintBtn" title="Hint (H)">Hint</button>
+</div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="puzzles.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

@@ -83,12 +83,21 @@
     const allTags = Object.keys(tagCounts).sort((a, b) => tagCounts[b] - tagCounts[a] || a.localeCompare(b));
     if (activeTag && !tagCounts[activeTag]) activeTag = "";
 
+    const TOP_TAGS = 12;
+    let tagsOpen = false;
     function renderTags() {
       if (!allTags.length) { tagsEl.innerHTML = ""; return; }
+      let shown = tagsOpen ? allTags : allTags.slice(0, TOP_TAGS);
+      if (activeTag && !shown.includes(activeTag)) shown = shown.concat(activeTag);
+      const more = allTags.length > TOP_TAGS
+        ? [`<button class="tag more" type="button" data-more="1" aria-expanded="${tagsOpen}">${tagsOpen ? "Fewer tags" : `+${allTags.length - shown.length} more`}</button>`]
+        : [];
       tagsEl.innerHTML = ['<button class="tag" type="button" data-tag="" aria-pressed="' + (!activeTag) + '">All</button>']
-        .concat(allTags.map((t) => `<button class="tag" type="button" data-tag="${esc(t)}" aria-pressed="${t === activeTag}">${esc(t)}</button>`))
+        .concat(shown.map((t) => `<button class="tag" type="button" data-tag="${esc(t)}" aria-pressed="${t === activeTag}">${esc(t)}</button>`))
+        .concat(more)
         .join("");
     }
+    const order = new Map(games.map((g, i) => [g, i]));
 
     function syncUrl() {
       const p = new URLSearchParams();
@@ -107,7 +116,7 @@
       });
       if (sort.value === "az") list.sort((a, b) => a.title.localeCompare(b.title));
       else if (sort.value === "random") list.sort((a, b) => hash(a.id + shuffleSeed) - hash(b.id + shuffleSeed));
-      else list.sort((a, b) => String(b.added || "").localeCompare(String(a.added || "")) || a.title.localeCompare(b.title));
+      else list.sort((a, b) => String(b.added || "").localeCompare(String(a.added || "")) || order.get(a) - order.get(b));
 
       count.textContent = list.length === games.length
         ? `${games.length} game${games.length === 1 ? "" : "s"}`
@@ -137,6 +146,7 @@
     tagsEl.addEventListener("click", (e) => {
       const b = e.target.closest(".tag");
       if (!b) return;
+      if (b.dataset.more) { tagsOpen = !tagsOpen; renderTags(); tagsEl.querySelector(".more")?.focus(); return; }
       activeTag = b.dataset.tag;
       renderTags();
       render();

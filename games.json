@@ -1,5 +1,45 @@
 [
   {
+    "id": "stackfall",
+    "title": "STACKFALL",
+    "description": "A fast falling-block puzzle game. It has modern rotation with wall kicks, hold, ghost pieces, T-spins, combos and perfect clears. Modes: Marathon, a 40-line Sprint, 2-minute Ultra, Dig, Zen and a Daily Sprint. Keys and handling can be changed.",
+    "tags": ["puzzle", "falling blocks", "arcade", "speedrun"],
+    "added": "2026-11-17",
+    "path": "games/stackfall/",
+    "cover": "games/stackfall/cover.jpg",
+    "controls": "Move: ← →   Soft drop: ↓   Hard drop: Space\nRotate: ↑ / X and Z / Ctrl   180°: A   Hold: C / Shift\nPause: Esc   Restart: R   (all keys can be changed)\nController and touch work too"
+  },
+  {
+    "id": "defuse",
+    "title": "DEFUSE",
+    "description": "Minesweeper with no-guess boards: every board can be cleared by logic alone, and your first click is always safe. Play Beginner, Intermediate, Expert, custom sizes or the daily board, with chording, hints, zoom and records.",
+    "tags": ["puzzle", "logic", "minesweeper", "daily"],
+    "added": "2026-11-17",
+    "path": "games/defuse/",
+    "cover": "games/defuse/cover.jpg",
+    "controls": "Left click: open   Right click: flag\nClick a number to open around it (chord)\nArrows + Space / F also work   H: hint   Scroll: zoom\nTouch: tap to open, hold to flag, pinch to zoom"
+  },
+  {
+    "id": "ninefold",
+    "title": "NINEFOLD",
+    "description": "Sudoku graded by the techniques each puzzle needs, from Easy to Expert. It has notes, auto-notes, undo, mistake checking and hints that explain the logic, plus a daily puzzle and stats.",
+    "tags": ["puzzle", "logic", "sudoku", "daily"],
+    "added": "2026-11-17",
+    "path": "games/ninefold/",
+    "cover": "games/ninefold/cover.jpg",
+    "controls": "Click a cell, then a number (or type 1-9)\nNotes: N or Shift+number   Fill notes: A\nUndo: Ctrl+Z   Erase: Backspace   Hint: H\nController and touch work too"
+  },
+  {
+    "id": "inkgrid",
+    "title": "INKGRID",
+    "description": "Picture logic puzzles (nonograms). Use the number clues to ink in a hidden picture, then watch it fill with color. There are 24 hand-drawn puzzles in three packs, endless random puzzles and a daily 15 × 15, all solvable without guessing.",
+    "tags": ["puzzle", "logic", "nonogram", "daily"],
+    "added": "2026-11-17",
+    "path": "games/inkgrid/",
+    "cover": "games/inkgrid/cover.jpg",
+    "controls": "Left drag: ink   Right drag: cross out\nArrows + hold Z / X to ink or cross\nH: hint   Ctrl+Z: undo   Esc: menu\nTouch: pick Fill or Cross, then tap or drag"
+  },
+  {
     "id": "lastlantern",
     "title": "Last Lantern",
     "description": "A pixel-art survival roguelite. Your weapons fire on their own, so dodge the swarm, pick upgrades, evolve your weapons and survive 15 minutes until dawn. Unlock six keepers, three stages with bosses, and a daily night.",
