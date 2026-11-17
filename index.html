@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Senterra Arcade</title>
+  <meta name="description" content="Free browser games by SenterraSlays. Play instantly, no downloads.">
+  <meta property="og:title" content="Senterra Arcade">
+  <meta property="og:description" content="Free browser games by SenterraSlays. Play instantly, no downloads.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="home">
+  <header class="hero">
+    <div class="wrap">
+      <a class="logo" href="./" aria-label="Senterra Arcade home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">SENTERRA<b>ARCADE</b></span>
+      </a>
+      <h1>Free games you can play right now.</h1>
+      <p class="tagline">No downloads, no sign-ups. Pick a game and go.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search games" autocomplete="off" aria-label="Search games">
+      </label>
+      <select id="sort" aria-label="Sort games">
+        <option value="new">Newest</option>
+        <option value="az">A to Z</option>
+        <option value="random">Shuffle</option>
+      </select>
+    </div>
+    <div id="tags" class="tags" role="group" aria-label="Filter by tag"></div>
+
+    <p id="count" class="count" aria-live="polite"></p>
+    <section id="grid" class="grid" aria-label="Games"></section>
+
+    <div id="empty" class="empty" hidden>
+      <div class="empty-art" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <h2>Games are on the way</h2>
+      <p>New games land here as they're made. Check back soon.</p>
+    </div>
+    <div id="nomatch" class="empty small" hidden>
+      <h2>No games match that</h2>
+      <p><button id="clear" class="btn ghost" type="button">Clear filters</button></p>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">Made by SenterraSlays</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

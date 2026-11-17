@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Play | Senterra Arcade</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-page="play">
+  <nav class="bar">
+    <a class="back" href="./">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      <span>All games</span>
+    </a>
+    <strong id="title" class="bar-title">Loading…</strong>
+    <div class="bar-actions">
+      <button id="restart" class="icon-btn" type="button" title="Restart" aria-label="Restart game">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4v5h5"/></svg>
+      </button>
+      <button id="full" class="icon-btn" type="button" title="Fullscreen" aria-label="Fullscreen">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="play wrap">
+    <div id="stage" class="stage">
+      <iframe id="frame" title="Game" allow="fullscreen; autoplay; gamepad; clipboard-write" allowfullscreen></iframe>
+    </div>
+
+    <section id="info" class="info">
+      <div>
+        <p id="desc" class="desc"></p>
+        <div id="meta" class="tags"></div>
+      </div>
+      <div id="controls" class="controls" hidden>
+        <h2>Controls</h2>
+        <p id="controlsText"></p>
+      </div>
+    </section>
+
+    <div id="missing" class="empty" hidden>
+      <h2>That game isn't here</h2>
+      <p><a class="btn" href="./">Back to all games</a></p>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
