@@ -9,7 +9,8 @@
      "path": "games/my-game/",        // folder with the game's index.html (or a full URL)
      "cover": "games/my-game/cover.png", // optional, 16:9
      "controls": "Space to jump",     // optional
-     "aspect": "landscape"            // optional: landscape | portrait | square
+     "aspect": "landscape",           // optional: landscape | portrait | square
+     "site": "https://..."            // optional: "Game website" button on the play page
    }
 */
 (function () {
@@ -179,6 +180,11 @@
     document.getElementById("desc").textContent = g.description || "";
     document.getElementById("meta").innerHTML = (g.tags || [])
       .map((t) => `<a class="tag" href="./?tag=${encodeURIComponent(t)}">${esc(t)}</a>`).join("");
+    if (g.site) {
+      const site = document.getElementById("site");
+      site.href = g.site;
+      site.hidden = false;
+    }
     if (g.controls) {
       document.getElementById("controls").hidden = false;
       document.getElementById("controlsText").textContent = g.controls;

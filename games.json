@@ -1,1 +1,13 @@
-[]
+[
+  {
+    "id": "octive",
+    "title": "OCTIVE",
+    "description": "A fast vertical-scrolling rhythm game. Hit the notes as they reach the line, climb the global rankings, take on the daily charts, and import your own .oct or osu! beatmaps.",
+    "tags": ["rhythm", "music", "ranked", "multiplayer"],
+    "added": "2026-11-17",
+    "path": "https://senterraslays.github.io/octive/play/",
+    "cover": "games/octive/cover.jpg",
+    "controls": "4 keys: D F J K (change them in Settings → Input)\nWorks best in fullscreen",
+    "site": "https://senterraslays.github.io/octive/#/"
+  }
+]
