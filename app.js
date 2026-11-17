@@ -165,6 +165,7 @@
     if (!g) {
       document.getElementById("title").textContent = "Not found";
       stage.hidden = true;
+      document.getElementById("stageActions").hidden = true;
       document.getElementById("info").hidden = true;
       document.getElementById("missing").hidden = false;
       document.title = "Not found | Senterra Arcade";
@@ -195,12 +196,18 @@
       setTimeout(() => { frame.src = g.path; frame.focus(); }, 30);
     });
 
-    const full = document.getElementById("full");
-    if (!document.fullscreenEnabled) full.hidden = true;
-    full.addEventListener("click", () => {
+    const toggleFull = () => {
       if (document.fullscreenElement) document.exitFullscreen();
       else stage.requestFullscreen().then(() => frame.focus()).catch(() => {});
-    });
+    };
+    const full = document.getElementById("full");
+    const fullBig = document.getElementById("fullBig");
+    if (!document.fullscreenEnabled) {
+      full.hidden = true;
+      document.getElementById("stageActions").hidden = true;
+    }
+    full.addEventListener("click", toggleFull);
+    fullBig.addEventListener("click", toggleFull);
 
     frame.addEventListener("load", () => { try { frame.focus(); } catch (e) { /* cross-origin */ } });
   }
