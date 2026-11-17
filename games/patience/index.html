@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>PATIENCE</title>
+<meta name="description" content="Klondike, Spider and FreeCell solitaire with winnable deals, smart hints, unlimited undo, daily deals and stats.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Libre+Baskerville:wght@700&family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #0a3f2c; --panel: rgba(12, 28, 22, .96); --panel2: #183a2e; --line: rgba(255, 240, 210, .14); --line2: rgba(255, 240, 210, .32);
+    --text: #fbf6ea; --muted: #c2cfc4; --dim: #8fa396; --accent: #e9c46a; --accent-ink: #2a1d00; --accent2: #e76f51; --gold: #ffd77a; --good: #8fe3a8; --bad: #ff8a7a;
+    --overlay: rgba(4, 18, 12, .72); --font-head: "Cinzel", Georgia, serif; --font-body: "Rubik", system-ui, sans-serif; --radius: .55em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; display: flex; align-items: center; gap: .45em; padding: .45em .6em; padding-bottom: max(.45em, env(safe-area-inset-bottom));
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .38) 35%); }
+  #bar .k-btn { padding: .45em .8em; background: rgba(12, 28, 22, .82); }
+  #stats { flex: 1; display: flex; gap: 1em; justify-content: center; font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; }
+  #stats b { color: var(--text); font-weight: 700; }
+  #stats .daily { color: var(--gold); font-weight: 700; }
+  .logo { font: 900 clamp(2.6em, 11vw, 5em)/1 var(--font-head); letter-spacing: .08em; color: #fbf3df; text-shadow: 0 4px 24px rgba(0, 0, 0, .45); }
+  .logo span { color: var(--accent); }
+  .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(14em, 1fr)); gap: .7em; width: min(100%, 52em); }
+  .gtile { display: flex; flex-direction: column; align-items: center; gap: .35em; padding: .9em .8em 1em; background: rgba(12, 28, 22, .9); }
+  .gtile img { height: 5.6em; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, .35)); }
+  .gtile b { font: 700 1.35em var(--font-head); letter-spacing: .04em; }
+  .gtile span { color: var(--muted); font-size: .88em; font-weight: 400; }
+  .gtile em { color: var(--gold); font-style: normal; font-size: .82em; font-weight: 500; }
+  .opts { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5em, 1fr)); gap: .5em; width: min(100%, 36em); }
+  .opts .k-btn { display: flex; flex-direction: column; gap: .15em; padding: .75em .6em; }
+  .opts .k-btn small { color: var(--muted); font-weight: 400; font-size: .8em; }
+  .opts .k-btn.primary small { color: var(--accent-ink); opacity: .75; }
+  .swatches { display: flex; gap: .4em; }
+  .sw { width: 2.4em; height: 3.2em; border-radius: .35em; border: 2px solid transparent; padding: 0; cursor: pointer; background-size: cover; }
+  .sw.felt { height: 2.4em; }
+  .sw.on { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(255, 215, 122, .35); }
+  table.st { border-collapse: collapse; width: min(100%, 40em); font-variant-numeric: tabular-nums; }
+  table.st th, table.st td { padding: .4em .5em; border-bottom: 1px solid var(--line); text-align: right; }
+  table.st th:first-child, table.st td:first-child { text-align: left; }
+  table.st th { color: var(--muted); font-weight: 500; font-size: .85em; }
+  .dealrow { display: flex; gap: .5em; align-items: center; justify-content: center; flex-wrap: wrap; }
+  .dealrow input { font: inherit; width: 8em; padding: .5em .6em; border-radius: var(--radius); border: 1px solid var(--line2); background: rgba(0, 0, 0, .3); color: var(--text); text-align: center; }
+  @media (max-width: 520px) { #stats { gap: .6em; font-size: .9em; } #bar .k-btn { padding: .45em .6em; } }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Card table"></canvas>
+<div id="bar" hidden>
+  <button class="k-btn" id="menuBtn" aria-label="Menu">☰</button>
+  <div id="stats"><span id="sTime">0:00</span><span id="sMoves">0 moves</span><span id="sScore"></span></div>
+  <button class="k-btn" id="hintBtn" title="Hint (H)">Hint</button>
+  <button class="k-btn" id="undoBtn" title="Undo (Ctrl+Z)">Undo</button>
+  <button class="k-btn" id="newBtn" title="New deal (N)">New</button>
+</div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="rules.js?v=1"></script>
+<script src="cards.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

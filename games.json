@@ -1,5 +1,45 @@
 [
   {
+    "id": "patience",
+    "title": "PATIENCE",
+    "description": "Three solitaire games in one: Klondike (draw 1 or 3), Spider (1, 2 or 4 suits) and FreeCell with numbered deals. Klondike deals can always be won, hints come from a solver, and you get unlimited undo, daily deals and stats.",
+    "tags": ["cards", "solitaire", "classic", "daily"],
+    "added": "2026-11-17",
+    "path": "games/patience/",
+    "cover": "games/patience/cover.jpg",
+    "controls": "Drag cards, or click one to send it to the best spot\nClick the stock to draw (or deal in Spider)\nH: hint   Ctrl+Z: undo   N: new deal\nKeyboard, controller and touch work too"
+  },
+  {
+    "id": "gambit",
+    "title": "GAMBIT",
+    "description": "Chess against a built-in engine with eight levels, from beginner to strong, or with a friend on one device. It has hints, takebacks, optional clocks, a rating that grows as you win, game review and PGN export.",
+    "tags": ["chess", "strategy", "board game", "two player"],
+    "added": "2026-11-17",
+    "path": "games/gambit/",
+    "cover": "games/gambit/cover.jpg",
+    "controls": "Drag a piece, or click it and then its target square\nRight-drag to draw arrows\nH: hint   F: flip   Ctrl+Z: takeback   Esc: menu\nHome / End and [ ] step through the moves"
+  },
+  {
+    "id": "jade",
+    "title": "JADE",
+    "description": "Mahjong solitaire. Match free tiles in pairs to clear five layouts, from the classic Tortoise to Fortress and Twin Peaks. Every deal can be solved, and a shuffle keeps it that way if you get stuck.",
+    "tags": ["puzzle", "mahjong", "tiles", "daily"],
+    "added": "2026-11-17",
+    "path": "games/jade/",
+    "cover": "games/jade/cover.jpg",
+    "controls": "Click two matching free tiles to remove them\nH: hint   S: shuffle   Ctrl+Z: undo\nArrows + Enter pick tiles with the keyboard\nController and touch work too"
+  },
+  {
+    "id": "gloop",
+    "title": "GLOOP",
+    "description": "Drop squishy slimes into a tank. Two of a kind merge into the next size, and quick chains score combos. Grow all eleven slimes up to the King Gloop before the tank overflows.",
+    "tags": ["puzzle", "physics", "merge", "casual"],
+    "added": "2026-11-17",
+    "path": "games/gloop/",
+    "cover": "games/gloop/cover.jpg",
+    "controls": "Aim with the mouse and click to drop\nTouch: drag to aim, let go to drop\n← → aim, Space drops, X shakes the tank\nController works too"
+  },
+  {
     "id": "stackfall",
     "title": "STACKFALL",
     "description": "A fast falling-block puzzle game. It has modern rotation with wall kicks, hold, ghost pieces, T-spins, combos and perfect clears. Modes: Marathon, a 40-line Sprint, 2-minute Ultra, Dig, Zen and a Daily Sprint. Keys and handling can be changed.",

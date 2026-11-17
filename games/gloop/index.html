@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>GLOOP</title>
+<meta name="description" content="Drop squishy slimes into the tank. Two of a kind merge into something bigger. Chain merges for combos and grow the King Gloop.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #251a45; --panel: rgba(43, 30, 82, .95); --panel2: #3a2a6e; --line: rgba(255, 255, 255, .16); --line2: rgba(255, 255, 255, .34);
+    --text: #fff8ff; --muted: #cbbcf0; --dim: #9a89c9; --accent: #ffcf3f; --accent-ink: #3a2400; --accent2: #6fe3ff; --gold: #ffd75e; --good: #7ef0b2; --bad: #ff7b8c;
+    --overlay: rgba(20, 12, 40, .74); --font-head: "Fredoka", system-ui, sans-serif; --font-body: "Fredoka", system-ui, sans-serif; --radius: .8em; --btn-shadow: 0 .18em 0 rgba(0, 0, 0, .25); }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #hud { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; justify-content: space-between; gap: .5em; padding: .5em .7em; padding-top: max(.5em, env(safe-area-inset-top)); pointer-events: none; }
+  #hud > * { pointer-events: auto; }
+  #hud .k-btn { padding: .45em .8em; }
+  .logo { font: 700 clamp(3.2em, 15vw, 6.4em)/1 var(--font-head); letter-spacing: .02em; color: #fff; text-shadow: 0 .08em 0 #6c3fd0, 0 .16em 0 #3b1f8a, 0 .3em 1em rgba(0, 0, 0, .35); }
+  .logo span:nth-child(1) { color: #6fe3ff; } .logo span:nth-child(2) { color: #7ef0b2; } .logo span:nth-child(3) { color: #ffd75e; } .logo span:nth-child(4) { color: #ff9a6b; } .logo span:nth-child(5) { color: #ff7fd1; }
+  .k-btn { font-weight: 700; }
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(12em, 1fr)); gap: .6em; width: min(100%, 36em); }
+  .mode { display: flex; flex-direction: column; gap: .15em; padding: .8em .9em; text-align: left; background: var(--panel); }
+  .mode b { font-size: 1.25em; } .mode span { color: var(--muted); font-size: .9em; font-weight: 500; } .mode em { color: var(--gold); font-style: normal; font-size: .85em; }
+  .evo { display: flex; flex-wrap: wrap; gap: .3em; justify-content: center; max-width: 36em; }
+  .evo img { width: 2.6em; height: 2.6em; }
+  .evo img.no { filter: brightness(0) opacity(.25); }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Slime tank"></canvas>
+<div id="hud" hidden><button class="k-btn" id="menuBtn" aria-label="Menu">☰</button><button class="k-btn" id="shakeBtn" title="Shake the tank (X)">Shake ×3</button></div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

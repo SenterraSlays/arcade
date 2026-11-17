@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>JADE</title>
+<meta name="description" content="Mahjong solitaire. Match free tiles in pairs to clear five hand-built layouts. Every deal can be solved.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&text=%E4%B8%80%E4%BA%8C%E4%B8%89%E5%9B%9B%E4%BA%94%E5%85%AD%E4%B8%83%E5%85%AB%E4%B9%9D%E8%90%AC%E6%9D%B1%E5%8D%97%E8%A5%BF%E5%8C%97%E4%B8%AD%E7%99%BC%E6%A2%85%E8%98%AD%E8%8F%8A%E7%AB%B9%E6%98%A5%E5%A4%8F%E7%A7%8B%E5%86%AC&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #062520; --panel: rgba(8, 34, 29, .96); --panel2: #12443a; --line: rgba(220, 255, 235, .14); --line2: rgba(220, 255, 235, .3);
+    --text: #f3efe2; --muted: #a9c7bb; --dim: #6f9285; --accent: #e8c46c; --accent-ink: #2a1d00; --accent2: #5fd3a5; --gold: #ffd77a; --good: #7fe0a8; --bad: #ff8a7a;
+    --overlay: rgba(3, 20, 16, .78); --font-head: "Marcellus", Georgia, serif; --font-body: "Nunito", system-ui, sans-serif; --radius: .55em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10; display: flex; align-items: center; gap: .5em; padding: .5em .7em; padding-top: max(.5em, env(safe-area-inset-top)); flex-wrap: wrap; justify-content: center;
+    background: linear-gradient(180deg, rgba(2, 16, 13, .7), rgba(2, 16, 13, 0)); pointer-events: none; }
+  #bar > * { pointer-events: auto; }
+  #bar .k-btn { background: rgba(8, 34, 29, .85); padding: .45em .8em; }
+  #info { display: flex; gap: 1em; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; flex: 1; justify-content: center; min-width: 14em; }
+  #info b { color: var(--text); }
+  .logo { font: 400 clamp(3em, 13vw, 6em)/1 var(--font-head); letter-spacing: .14em; color: #f3efe2; text-shadow: 0 4px 28px rgba(0, 0, 0, .5); }
+  .logo span { color: var(--accent2); }
+  .layouts { display: grid; grid-template-columns: repeat(auto-fit, minmax(11.5em, 1fr)); gap: .6em; width: min(100%, 56em); }
+  .lay { display: flex; flex-direction: column; align-items: center; gap: .25em; padding: .7em .6em .8em; background: rgba(8, 34, 29, .9); }
+  .lay img { width: 100%; max-width: 12em; height: 5.6em; object-fit: contain; }
+  .lay b { font: 400 1.25em var(--font-head); } .lay span { color: var(--muted); font-size: .82em; font-weight: 500; } .lay em { color: var(--gold); font-style: normal; font-size: .8em; }
+  table.st { border-collapse: collapse; width: min(100%, 32em); font-variant-numeric: tabular-nums; }
+  table.st td, table.st th { padding: .35em .5em; border-bottom: 1px solid var(--line); text-align: right; } table.st td:first-child, table.st th:first-child { text-align: left; } table.st th { color: var(--muted); font-weight: 500; font-size: .85em; }
+  @media (max-width: 560px) { #info { order: 3; flex-basis: 100%; gap: .8em; font-size: .9em; } }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Tile board"></canvas>
+<div id="bar" hidden>
+  <button class="k-btn" id="menuBtn" aria-label="Menu">☰</button>
+  <div id="info"><span id="iTime">0:00</span><span><b id="iPairs">72</b> pairs left</span><span><b id="iMoves">0</b> matches open</span></div>
+  <button class="k-btn" id="hintBtn" title="Hint (H)">Hint</button>
+  <button class="k-btn" id="undoBtn" title="Undo (Ctrl+Z)">Undo</button>
+  <button class="k-btn" id="shufBtn" title="Shuffle (S)">Shuffle</button>
+</div>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="mahjong.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>
