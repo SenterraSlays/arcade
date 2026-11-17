@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>HOPPER</title>
+<meta name="description" content="Hop across endless roads, rivers and rail lines. Dodge traffic, ride the logs, outrun the fog and collect coins to unlock new critters.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #8fd16a; --panel: rgba(255, 252, 240, .97); --panel2: #fff6dc; --line: rgba(60, 40, 10, .14); --line2: rgba(60, 40, 10, .3);
+    --text: #3a2a12; --muted: #7d6a48; --dim: #a8987a; --accent: #ff8a3d; --accent-ink: #fff; --accent2: #3db5ff; --gold: #e0a800; --good: #3f9f3a; --bad: #e0453d;
+    --overlay: rgba(255, 248, 225, .7); --font-head: "Baloo 2", system-ui, sans-serif; --font-body: "Baloo 2", system-ui, sans-serif; --radius: .9em; --btn-shadow: 0 .2em 0 rgba(60, 40, 10, .2); color-scheme: light; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #pauseBtn { position: fixed; z-index: 10; top: max(.5em, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); }
+  .logo { font: 800 clamp(3.2em, 15vw, 6.4em)/1 var(--font-head); color: #ff8a3d; text-shadow: 0 .06em 0 #fff, 0 .12em 0 #c25a10, 0 .25em .6em rgba(60, 40, 10, .25); letter-spacing: .02em; }
+  .shop { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5em, 1fr)); gap: .5em; width: min(100%, 40em); }
+  .critter { display: flex; flex-direction: column; align-items: center; gap: .1em; padding: .5em; background: var(--panel); }
+  .critter img { width: 4.2em; height: 4.2em; } .critter b { font-size: 1em; } .critter small { color: var(--muted); font-weight: 700; }
+  .critter.on { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(255, 138, 61, .35); }
+  .critter.locked img { filter: grayscale(1) brightness(.85); }
+  .coins { font-weight: 800; color: var(--gold); }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Field"></canvas>
+<button class="k-btn small" id="pauseBtn" hidden aria-label="Pause">❚❚</button>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

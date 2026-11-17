@@ -1,5 +1,45 @@
 [
   {
+    "id": "hopper",
+    "title": "HOPPER",
+    "description": "Hop across endless roads, rivers and rail lines. Dodge traffic, ride the logs, watch for trains and keep ahead of the fog. Collect coins to unlock ten critters, or try the daily path.",
+    "tags": ["arcade", "endless", "casual", "daily"],
+    "added": "2026-11-17",
+    "path": "games/hopper/",
+    "cover": "games/hopper/cover.jpg",
+    "controls": "Hop: arrows or WASD (Space hops forward)\nTouch: tap to hop forward, swipe to hop sideways or back\nEsc: pause\nController works too"
+  },
+  {
+    "id": "blastzone",
+    "title": "BLASTZONE",
+    "description": "An arena bomber for up to four. Blast crates, grab power-ups like kick and shield, and outlast three bots, or bring a friend on the same keyboard or with controllers. Three arenas and sudden death.",
+    "tags": ["arcade", "party", "two player", "action"],
+    "added": "2026-11-17",
+    "path": "games/blastzone/",
+    "cover": "games/blastzone/cover.jpg",
+    "controls": "One player: WASD or arrows move, Space drops a bomb\nTwo players: P1 WASD + Space, P2 arrows + Enter\nControllers: stick moves, A drops a bomb\nTouch: on-screen pad and bomb button"
+  },
+  {
+    "id": "sunsetdrive",
+    "title": "SUNSET DRIVE",
+    "description": "An arcade road racer into the sunset. Beat the clock through five stages of coast, city, desert, mountains and neon, weaving past traffic for close-call bonuses. Or switch off the clock and just cruise.",
+    "tags": ["racing", "arcade", "driving", "retro"],
+    "added": "2026-11-17",
+    "path": "games/sunsetdrive/",
+    "cover": "games/sunsetdrive/cover.jpg",
+    "controls": "Accelerate: ↑ / W   Brake: ↓ / S   Steer: ← →\nTouch: the car accelerates by itself, hold the buttons to steer\nController: stick steers, A or RT gas, B or LT brake\nEsc: pause"
+  },
+  {
+    "id": "teetime",
+    "title": "TEE TIME",
+    "description": "Mini golf with 18 hand-built holes: windmills, bumpers, bridges, slopes, sliding gates, sand and water. Play the full course, either nine, or practice single holes, alone or with up to four players.",
+    "tags": ["sports", "golf", "casual", "party"],
+    "added": "2026-11-17",
+    "path": "games/teetime/",
+    "cover": "games/teetime/cover.jpg",
+    "controls": "Press anywhere, drag back and let go to putt\nKeys: ← → aim, ↑ ↓ power, Space putts\nController: stick aims, triggers set power, A putts\nEsc: menu and scorecard"
+  },
+  {
     "id": "prismbreak",
     "title": "PRISMBREAK",
     "description": "A neon brick breaker with 24 levels across three worlds. Prism bricks split your ball in three, bombs chain together, and ten power-ups include lasers, fireballs and multiball. Earn three stars per level, or play the endless mode.",

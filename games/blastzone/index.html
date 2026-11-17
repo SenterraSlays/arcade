@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>BLASTZONE</title>
+<meta name="description" content="An arena bomber. Blast crates, grab power-ups and outlast three bots, or bring a friend on the same keyboard or with controllers.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #1d2333; --panel: rgba(30, 36, 54, .96); --panel2: #2c3550; --line: rgba(255, 255, 255, .14); --line2: rgba(255, 255, 255, .32);
+    --text: #f4f6ff; --muted: #a8b2d1; --dim: #6f7a99; --accent: #ffb23f; --accent-ink: #2e1a00; --accent2: #ff5a4f; --gold: #ffd166; --good: #5be08a; --bad: #ff5a4f;
+    --overlay: rgba(16, 20, 32, .78); --font-head: "Lilita One", system-ui, sans-serif; --font-body: "Nunito", system-ui, sans-serif; --radius: .7em; --btn-shadow: 0 .18em 0 rgba(0, 0, 0, .3); }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #pauseBtn { position: fixed; z-index: 10; top: max(.5em, env(safe-area-inset-top)); right: .6em; }
+  #pad { position: fixed; z-index: 10; left: max(1em, env(safe-area-inset-left)); bottom: max(1em, env(safe-area-inset-bottom)); width: 9.5em; height: 9.5em; border-radius: 50%; background: rgba(255, 255, 255, .08); border: 2px solid rgba(255, 255, 255, .2); touch-action: none; }
+  #pad i { position: absolute; left: 50%; top: 50%; width: 3.6em; height: 3.6em; margin: -1.8em; border-radius: 50%; background: rgba(255, 255, 255, .25); }
+  #bombBtn { position: fixed; z-index: 10; right: max(1.2em, env(safe-area-inset-right)); bottom: max(1.6em, env(safe-area-inset-bottom)); width: 5.5em; height: 5.5em; border-radius: 50%; font: 1.1em var(--font-head); background: #ff5a4f; color: #fff; border: 3px solid #fff3; }
+  .logo { font: 400 clamp(3em, 13vw, 6em)/1 var(--font-head); color: #ffb23f; letter-spacing: .03em; text-shadow: 0 .06em 0 #c4421f, 0 .14em .4em rgba(0, 0, 0, .4); }
+  .logo span { color: #ff5a4f; }
+  .setup { display: flex; flex-direction: column; gap: .7em; width: min(100%, 30em); }
+  .setup .row { display: flex; flex-direction: column; gap: .3em; text-align: left; }
+  .setup .row > span { color: var(--muted); font-weight: 800; font-size: .8em; letter-spacing: .08em; text-transform: uppercase; }
+  .k-seg { width: 100%; } .k-seg .k-btn { flex: 1; }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Arena"></canvas>
+<button class="k-btn small" id="pauseBtn" hidden aria-label="Pause">❚❚</button>
+<div id="pad" hidden><i></i></div>
+<button id="bombBtn" hidden>BOMB</button>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

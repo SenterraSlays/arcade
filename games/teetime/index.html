@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>TEE TIME</title>
+<meta name="description" content="Mini golf with 18 hand-built holes: windmills, bumpers, bridges, slopes, sand and water. Play alone or pass the device between up to four players.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #2f6b3a; --panel: rgba(255, 252, 238, .97); --panel2: #fff4d6; --line: rgba(40, 60, 30, .15); --line2: rgba(40, 60, 30, .32);
+    --text: #24331c; --muted: #61724f; --dim: #93a283; --accent: #ff7a3d; --accent-ink: #fff; --accent2: #2e9bff; --gold: #d99a00; --good: #2f8f3a; --bad: #d8443a;
+    --overlay: rgba(240, 248, 225, .72); --font-head: "Chewy", system-ui, sans-serif; --font-body: "Nunito", system-ui, sans-serif; --radius: .8em; --btn-shadow: 0 .18em 0 rgba(40, 60, 30, .2); color-scheme: light; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #pauseBtn { position: fixed; z-index: 10; top: max(.5em, env(safe-area-inset-top)); right: .6em; }
+  .logo { font: 400 clamp(3.2em, 14vw, 6.2em)/1 var(--font-head); color: #fff; text-shadow: 0 .06em 0 #2f8f3a, 0 .12em 0 #1f5f28, 0 .25em .6em rgba(0, 0, 0, .25); letter-spacing: .02em; }
+  .logo span { color: #ffd23f; }
+  .setup { display: flex; flex-direction: column; gap: .7em; width: min(100%, 30em); }
+  .setup .row { display: flex; flex-direction: column; gap: .3em; text-align: left; }
+  .setup .row > span { color: var(--muted); font-weight: 900; font-size: .8em; letter-spacing: .08em; text-transform: uppercase; }
+  .k-seg { width: 100%; } .k-seg .k-btn { flex: 1; }
+  table.card { border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: .9em; }
+  table.card td, table.card th { padding: .3em .35em; border: 1px solid var(--line); text-align: center; min-width: 1.8em; }
+  table.card th { background: var(--panel2); font-weight: 800; }
+  table.card td.n { text-align: left; font-weight: 800; white-space: nowrap; }
+  table.card .under { color: var(--good); font-weight: 900; } table.card .over { color: var(--bad); }
+  .cardwrap { max-width: 100%; overflow-x: auto; background: var(--panel); border-radius: var(--radius); border: 1px solid var(--line); padding: .5em; }
+  .holes { display: grid; grid-template-columns: repeat(6, 1fr); gap: .4em; width: min(100%, 34em); }
+  .holes .k-btn { display: flex; flex-direction: column; padding: .45em .2em; } .holes .k-btn small { color: var(--muted); font-size: .72em; font-weight: 700; }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Course"></canvas>
+<button class="k-btn small" id="pauseBtn" hidden aria-label="Menu">☰</button>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>

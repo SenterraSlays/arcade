@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>SUNSET DRIVE</title>
+<meta name="description" content="An arcade road racer into the sunset. Beat the clock through five stages of coast, city, desert, mountains and neon, weaving past traffic.">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Monoton&family=Kanit:ital,wght@0,500;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../_kit/kit.css?v=1">
+<style>
+  :root { --bg: #1a0b2e; --panel: rgba(32, 14, 54, .95); --panel2: #3a1d5e; --line: rgba(255, 200, 255, .16); --line2: rgba(255, 200, 255, .38);
+    --text: #fff3fb; --muted: #d4b6e6; --dim: #9a7bb0; --accent: #ff4f9a; --accent-ink: #2a0016; --accent2: #2ee8ff; --gold: #ffcd4f; --good: #6bff9e; --bad: #ff5a5a;
+    --overlay: rgba(20, 6, 34, .72); --font-head: "Kanit", system-ui, sans-serif; --font-body: "Kanit", system-ui, sans-serif; --radius: .4em; }
+  #cv { position: fixed; inset: 0; display: block; touch-action: none; }
+  #pauseBtn { position: fixed; z-index: 10; top: max(.5em, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); }
+  .tb { position: fixed; z-index: 10; bottom: max(1em, env(safe-area-inset-bottom)); width: 5.4em; height: 5.4em; border-radius: 50%; font: 800 1em var(--font-body); background: rgba(255, 255, 255, .14); border: 2px solid rgba(255, 255, 255, .35); color: #fff; touch-action: none; }
+  #tLeft { left: 1em; } #tRight { left: 7.2em; } #tBrake { right: 1em; background: rgba(255, 90, 90, .3); }
+  .logo { font: 400 clamp(2.6em, 11vw, 5.6em)/1 "Monoton", system-ui; color: #ffd0e8; text-shadow: 0 0 .2em #ff4f9a, 0 0 .6em #ff7a3d; letter-spacing: .04em; }
+  .modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(13em, 1fr)); gap: .6em; width: min(100%, 34em); }
+  .mode { display: flex; flex-direction: column; gap: .15em; padding: .8em 1em; text-align: left; }
+  .mode b { font: 800 italic 1.3em var(--font-head); color: var(--accent2); } .mode span { color: var(--muted); font-weight: 500; } .mode em { font-style: normal; color: var(--gold); font-weight: 700; }
+</style>
+</head>
+<body>
+<canvas id="cv" aria-label="Road"></canvas>
+<button class="k-btn small" id="pauseBtn" hidden aria-label="Pause">❚❚</button>
+<button class="tb" id="tLeft" hidden>◀</button><button class="tb" id="tRight" hidden>▶</button><button class="tb" id="tBrake" hidden>BRAKE</button>
+<div id="ui"></div>
+<script src="../_kit/kit.js?v=1"></script>
+<script src="game.js?v=1"></script>
+</body>
+</html>
